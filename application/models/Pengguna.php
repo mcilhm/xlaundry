@@ -16,6 +16,16 @@ class Pengguna extends CI_Model
 		return $this->db->get();
 
 	}
+	public function SelectAll2()
+	{
+		$this->db->select('*');
+		$this->db->from('pengguna');
+		$this->db->where('tipe_pengguna', 1);
+
+		return $this->db->get();
+
+	}
+
 	public function insert($data)
 	{
 		return $this->db->insert('pengguna',$data);
@@ -39,13 +49,13 @@ class Pengguna extends CI_Model
 		return $this->db->delete('pengguna');
 	}
 
-	public function check_user_account($username,$password)
+	public function check_user_account($username,$password, $tipe_pengguna = 0)
 	{
 		$this->db->select('*');
 		$this->db->from('pengguna');
 		$this->db->where('id_pengguna', $username);
 		$this->db->where('kata_sandi', $password);
-		$this->db->where('tipe_pengguna', '0');
+		$this->db->where('tipe_pengguna', $tipe_pengguna);
 		$this->db->where('status_pengguna', '1');
 
 		return $this->db->get();

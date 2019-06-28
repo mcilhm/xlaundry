@@ -16,6 +16,7 @@ class Paketan extends CI_Model
 		return $this->db->get();
 
 	}
+
 	public function insert($data)
 	{
 		return $this->db->insert('paketan',$data);

@@ -49,7 +49,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = '';
+$route['default_controller'] = 'BerandaController';
+
+
+$route['login'] = 'LoginController';
+$route['login/user'] = 'LoginController/login';
+$route['login/logout'] = 'LoginController/logout';
+
+
+$route['register'] = 'RegisterController';
+$route['register/add'] = 'RegisterController/add';
+
+
+$route['profil'] = 'ProfilController';
+$route['profil/update'] = 'ProfilController/update';
+
+$route['pesanan'] = 'PesananController';
+$route['pesanan/add'] = "PesananController/add";
+$route['pesanan/preview'] = 'PesananController/preview';
+$route['pesanan/pesan'] = 'PesananController/pesan';
+$route['histori'] = 'HistoriController';
 
 $route['admin'] = 'admin/LoginController';
 
@@ -59,6 +78,11 @@ $route['admin/bahan'] = "admin/BahanController";
 $route['admin/bahan/add'] = "admin/BahanController/add";
 $route['admin/bahan/update/(:num)'] = "admin/BahanController/update/$1";
 $route['admin/bahan/delete/(:num)'] = "admin/BahanController/delete/$1";
+
+$route['admin/pengiriman'] = "admin/PengirimanController";
+$route['admin/pengiriman/add'] = "admin/PengirimanController/add";
+$route['admin/pengiriman/update/(:num)'] = "admin/PengirimanController/update/$1";
+$route['admin/pengiriman/delete/(:num)'] = "admin/PengirimanController/delete/$1";
 
 $route['admin/mesincuci'] = "admin/MesincuciController";
 $route['admin/mesincuci/add'] = "admin/MesincuciController/add";
@@ -84,6 +108,10 @@ $route['admin/paketan_detail'] = "admin/PaketanDetailController";
 $route['admin/paketan_detail/add'] = "admin/PaketanDetailController/add";
 $route['admin/paketan_detail/update/(:num)'] = "admin/PaketanDetailController/update/$1";
 $route['admin/paketan_detail/delete/(:num)'] = "admin/PaketanDetailController/delete/$1";
+
+$route['admin/pesanan'] = "admin/PesananController";
+$route['admin/pesanan/add'] = "admin/PesananController/add";
+$route['admin/pesanan/updateproses/(:any)'] = "admin/PesananController/updateproses/$1";
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

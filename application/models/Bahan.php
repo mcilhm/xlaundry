@@ -33,6 +33,14 @@ class Bahan extends CI_Model
 
 		return $this->db->get();
 	}
+	public function SelectByStatus()
+	{
+		$this->db->select('*');
+		$this->db->from('bahan');
+		$this->db->where('status_bahan', 1);
+
+		return $this->db->get();
+	}
 	public function delete($id)
 	{  
 		$this->db->where('id_bahan',$id);
