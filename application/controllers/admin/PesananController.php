@@ -151,7 +151,43 @@ class PesananController extends CI_Controller {
                                                     <i class="zmdi zmdi-check pr-15 pull-left"></i><p class="pull-left">Berhasil! Data berhasil diubah.</p> 
                                                     <div class="clearfix"></div>
                                                 </div>'
-                                );
+								);
+		
+		$email_pemesan = $this->Pesanan->SelectIdPesanan($idpesanan)->row()->email_pemesan;
+
+		$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => '465',
+			'smtp_user' => 'ilhamkuncung28@gmail.com', //isi dengan gmailmu!
+			'smtp_pass' => 'MakanGmail03', //isi dengan password gmailmu!
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
+		);
+		$this->load->library('email', $config);
+
+		
+		$this->email->from('ilhamkuncung28@gmail.com', 'PT Home Laundry');
+		$this->email->set_newline("\r\n");
+		$this->email->to($email_pemesan); //email tujuan. Isikan dengan emailmu!
+		$this->email->subject('Status Pesanan Home Laundry');
+
+		if($this->input->post('status_pesanan') == 1)
+		{
+			$this->email->message("Pesanan anda sudah masuk ke tahap proses pencucian");
+		}
+		else if($this->input->post('status_pesanan') == 2)
+		{
+			$this->email->message("Pesanan anda sudah masuk ke tahap proses setrika");
+		}
+		else if($this->input->post('status_pesanan') == 3)
+		{
+			$this->email->message("Pesanan anda sudah selesai, akan segera kami antar");
+		}
+
+		$this->email->send();
+
         redirect('admin/pesanan');
 		
 	}

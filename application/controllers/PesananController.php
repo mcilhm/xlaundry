@@ -109,17 +109,20 @@ class PesananController extends CI_Controller {
 			$last_harga_bahan = $harga_bahan[$i];
 		}
 		
-		if(!empty($this->input->post('idpromo')))
-			$promo = $this->Promo->SelectIdPromo($this->input->post('idpromo'))->row();
-
-		$tipe_potongan_promo = $promo->tipe_potongan_promo;
-		$potongan_promo = $promo->potongan_promo;
 		
 		$datas["data_total_harga"] = $last_harga_bahan + $datas["harga_pengiriman"];
 
-		if($tipe_potongan_promo == 0)
-			$datas["data_total_harga"] = $datas["data_total_harga"] - $potongan_promo;
-		else $datas["data_total_harga"] = $datas["data_total_harga"] * $potongan_promo / 100;
+		if(!empty($this->input->post('idpromo')))
+		{
+			$promo = $this->Promo->SelectIdPromo($this->input->post('idpromo'))->row();
+
+			$tipe_potongan_promo = $promo->tipe_potongan_promo;
+			$potongan_promo = $promo->potongan_promo;
+
+			if($tipe_potongan_promo == 0)
+				$datas["data_total_harga"] = $datas["data_total_harga"] - $potongan_promo;
+			else $datas["data_total_harga"] = $datas["data_total_harga"] * $potongan_promo / 100;
+		}
 
 		$this->load->view('preview', $datas);
 	}

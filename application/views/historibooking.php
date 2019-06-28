@@ -105,11 +105,11 @@
                                                         <?php
                                                         if ($items->status_pesanan == '0') {
                                                             echo "<span class='label label-info'>Antrian</span>";
-                                                        } elseif ($items->status_bahan == '1') {
+                                                        } elseif ($items->status_pesanan == '1') {
                                                             echo "<span class='label label-primary'>Proses Cuci</span>";
-                                                        } elseif ($items->status_bahan == '2') {
+                                                        } elseif ($items->status_pesanan == '2') {
                                                             echo "<span class='label label-success'>Proses Setrika</span>";
-                                                        } elseif ($items->status_bahan == '3') {
+                                                        } elseif ($items->status_pesanan == '3') {
                                                             echo "<span class='label label-success'>Sudah Siap</span>";
                                                         }
                                                         ?>
