@@ -57,14 +57,77 @@
 			<li><a href="<?php echo base_url(); ?>admin/paketan"><em class="fa fa-calendar">&nbsp;</em> Data Paketan </a></li>
 			<li><a href="<?php echo base_url(); ?>admin/paketan_detail"><em class="fa fa-calendar">&nbsp;</em> Data Paketan Detail</a></li>
 			<li><a href="<?php echo base_url(); ?>admin/pengguna"><em class="fa fa-calendar">&nbsp;</em> Data Pengguna </a></li>
-			<li><a href="<?php echo base_url(); ?>admin/pesanan"><em class="fa fa-calendar">&nbsp;</em> Data Pesanan </a></li>
+			<li><a href="<?php echo base_url(); ?>admin/pesanan"><em class="fa fa-calendar">&nbsp;</em> Data Pesanan </a></li>			
 			<li><a href="<?php echo base_url(); ?>admin/pembayaran"><em class="fa fa-calendar">&nbsp;</em> Data Pembayaran </a></li>			
 			<li><a href="<?php echo base_url(); ?>admin/LoginController/logout"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div>
 	<!--/.sidebar-->
 
-	<?php $this->load->view('admin/pages/' . $content); ?>
+	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+		<div class="row">
+			<ol class="breadcrumb">
+				<li><a href="#">
+					<em class="fa fa-home"></em>
+				</a></li>
+				<li class="active">Menu</li>
+			</ol>
+		</div><!--/.row-->
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<h1 class="page-header">Pesanan</h1>
+			</div>
+		</div><!--/.row-->
+		
+		<div class="panel panel-container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="notifikasi" style="padding: 10px 15px;"><?php echo $this->session->flashdata('notifikasi'); ?></div>
+						<div class="panel-heading">
+							Data Table 
+							<a href="<?php echo base_url(); ?>admin/pesanan"><button type="button" class="btn btn-primary pull-right">Back</button></a>
+						</div>
+						<div class="panel-body">
+							<table id="example" class="table table-striped table-bordered" style="width:100%">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Kode Booking</th>
+										<th>Nama Bahan</th>
+										<th>Tipe Pesanan</th>
+										<th>Jumlah</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php 
+										$no = 0;
+										foreach ($pesanan->result() as $items) { 
+										$no++;
+									?>
+										<tr>
+											<td><?php echo $no; ?></td>
+											<td><?php echo $items->id_pesanan; ?></td>
+											<td><?php echo $items->nama_bahan; ?></td>
+											<td><?php echo $items->tipe_pesanan == 0 ? 'Kiloan' : 'Satuan'; ?></td>
+											<td><?php echo $items->jumlah; ?></td>
+										</tr>
+									<?php } ?>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div><!--/.row-->
+		</div>
+		
+		
+
+		<div class="col-sm-12">
+			<p class="back-link">Alamat : Perum BSI Cicadas Gunung Putri Bogor <a href="https://www.medialoot.com">085885896846</a></p>
+		</div>
+	</div>	<!--/.main-->
 
 	<script src="<?php echo base_url(); ?>assets/js/jquery-1.11.1.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
@@ -80,56 +143,7 @@
 		$(document).ready(function() {
 			$('#example').DataTable();
 		});
-		
-		function updatestatus(selected, id_pesanan)
-		{
-			var selectedStatus = $(selected).children("option:selected").val();
-			
-			$.ajax({ /* THEN THE AJAX CALL */
-				type: "POST", /* TYPE OF METHOD TO USE TO PASS THE DATA */
-				url: "<?php echo base_url(); ?>admin/pesanan/updateproses/" + id_pesanan , /* PAGE WHERE WE WILL PASS THE DATA */
-				data: "status_pesanan=" + selectedStatus, /* THE DATA WE WILL BE PASSING */
-				success: function(result){ /* GET THE TO BE RETURNED DATA */
-					
-				}
-			});
-		}
 	</script>
-
-	
-	<script>
-
-	var counter_detail = 1;
-
-	function add_detail() {
-		$(".detail").append('<div id="delete_detail' + counter_detail + '">' +
-			
-			'<div class="col-md-4">'+
-				'<div class="form-group">'+
-					'<label>Bahan</label>'+
-					'<select name="idbahan[]" class="form-control">'+
-						'<option selected="">Open this select menu</option>'+
-						'<?php foreach ($bahan->result() as $itemsbahan) { ?>'+
-							'<option value="<?php echo $itemsbahan->id_bahan; ?>"><?php echo $itemsbahan->nama_bahan; ?></option>'+
-						'<?php } ?>'+
-					'</select>'+
-				'</div>'+
-			'</div>'+
-			'<div class="col-md-5">'+
-				'<div class="form-group">'+
-					'<label>Jumlah <small>*sesuai dengan tipe pesanannya</small></label>'+
-					'<input type="number" min="0" name="jumlah[]" class="form-control" id="inlineFormInput">'+
-				'</div>'+
-			'</div>'+
-		'</div>');
-		counter_detail++;
-	}
-	function delete_detail(no) {
-		$('#delete_detail' + no).remove();
-	}
-
-	</script>
-
 </body>
 
 </html>

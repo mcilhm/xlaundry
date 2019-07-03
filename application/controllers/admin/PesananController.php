@@ -191,4 +191,14 @@ class PesananController extends CI_Controller {
         redirect('admin/pesanan');
 		
 	}
+
+	public function detail($idpesanan)
+	{
+		$data['content'] = "masterpesanandetail";
+		$data['title'] = "Pesanan Detail";
+		$data['idpesanan'] = $idpesanan;
+		$data['pesanan'] = $this->Pesanan->SelectByIdPesanan($idpesanan);
+		$this->load->view('admin/pages/masterpesanandetail',$data);
+		
+	}
 }

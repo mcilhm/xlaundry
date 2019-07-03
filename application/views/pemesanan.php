@@ -19,7 +19,8 @@
 </head>
 
 
-<body style="background-image: url(https://pingendo.com/site-assets/cover.jpg);	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+<!-- <body style="background-image: url(https://pingendo.com/site-assets/cover.jpg);	background-position: top left;	background-size: 100%;	background-repeat: repeat;"> -->
+<body class="">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-info" style="">
         <div class="container">
@@ -98,7 +99,7 @@
                                         <div class="form-group row"><label class="col-2">Alamat</label>
                                             <div class="col-10"><textarea name="alamatpemesan" class="form-control" id="exampleTextarea" rows="3"><?php echo $this->session->logged_in_user ? empty($pemesan) ? null : $pemesan->alamat_pemesan : null ?></textarea></div>
                                         </div>
-                                        <div class="form-group row"><label class="col-2">Pengiriman</label>
+                                        <div class="form-group row"><label class="col-2">Jenis Pengiriman</label>
                                             <div class="col-10">
                                                 <select name="idpengiriman" class="custom-select">
                                                     <option selected="" value="">Open this select menu</option>
@@ -114,7 +115,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row"><label class="col-2">Paketan</label>
+                                        <div class="form-group row"><label class="col-2">Jenis Paketan</label>
                                             <div class="col-10">
                                                 <select name="idpaketan" class="custom-select">
                                                     <option selected="" value="">Open this select menu</option>
@@ -128,7 +129,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row"><label class="col-2">Promo</label>
+                                        <div class="form-group row"><label class="col-2">Jenis Promo</label>
                                             <div class="col-10">
                                                 <select name="idpromo" class="custom-select">
                                                     <option selected="" value="">Open this select menu</option>
@@ -149,8 +150,9 @@
                                                     <option value="1">Satuan</option>
                                                 </select></div>
                                         </div>
+                                        <br>
                                         <h1 class="">Pemesanan Detail</h1>
-
+                                        <br>
                                         <div class="detail" id="detail">
                                             <div class="form-group row"><label class="col-2">Bahan</label>
                                                 <div class="col-10">
@@ -203,7 +205,7 @@
                             '<select name="idbahan[]" class="custom-select">'+
                                 '<option selected="" value="">Open this select menu</option>'+
                                 '<?php foreach ($bahan->result() as $itemsbahan) { ?>'+
-                                    '<option value="<?php echo $itemsbahan->id_bahan; ?>"><?php echo $itemsbahan->nama_bahan; ?></option>'+
+                                    '<option value="<?php echo $itemsbahan->id_bahan; ?>|<?php echo $itemsbahan->nama_bahan; ?>"><?php echo $itemsbahan->nama_bahan; ?></option>'+
                                 '<?php } ?>'+
                             '</select>'+
                         '</div>'+

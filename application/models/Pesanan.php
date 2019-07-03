@@ -27,6 +27,18 @@ class Pesanan extends CI_Model
 
 	}
 
+	public function SelectByIdPesanan($id_pesanan)
+	{
+		$this->db->select('pesanan.*, pesanan_detail.*, bahan.nama_bahan');
+		$this->db->from('pesanan');
+		$this->db->join('pesanan_detail', 'pesanan.id_pesanan = pesanan_detail.id_pesanan', 'INNER');
+		$this->db->join('bahan', 'pesanan_detail.id_bahan = bahan.id_bahan', 'left');
+		$this->db->where('pesanan.id_pesanan', $id_pesanan);
+
+		return $this->db->get();
+
+	}
+
 	function update_estimation_laundry_time($kode_pesanan)
 	{
 		# code...
@@ -55,8 +67,10 @@ class Pesanan extends CI_Model
 	}
 	public function SelectIdPengguna($id)
 	{
-		$this->db->select('*');
+		$this->db->select('pesanan.*, pengiriman.*, pembayaran.id_pembayaran, pembayaran.status_pembayaran');
 		$this->db->from('pesanan');
+		$this->db->join('pengiriman', 'pesanan.id_pengiriman = pengiriman.id_pengiriman', 'left');
+		$this->db->join('pembayaran', 'pesanan.id_pesanan = pembayaran.id_pesanan', 'left');
 		$this->db->where('id_pengguna', $id);
 
 		return $this->db->get();

@@ -27,6 +27,7 @@ class PesananController extends CI_Controller {
 		$this->load->model('Promo');
 		$this->load->model('Bahan');
 		$this->load->model('Pemesan');
+		$this->load->model('Pembayaran');
     }
 
 	public function index()
@@ -41,10 +42,11 @@ class PesananController extends CI_Controller {
 	{
 		$data['pengiriman'] = $this->Pengiriman->SelectAll();
 		$data['paketan'] = $this->Paketan->SelectAll();
-		$data['promo'] = $this->Promo->SelectByStatus();
 		$data['bahan'] = $this->Bahan->SelectByStatus();
+		$data['promo'] = $this->Promo->SelectByStatus(0);
 		if($this->session->logged_in_user)
 		{
+			$data['promo'] = $this->Promo->SelectByStatus(1);
 			$data['pemesan'] = $this->Pemesan->SelectIdPengguna($this->session->username_user)->row();
 		}
 
@@ -58,6 +60,8 @@ class PesananController extends CI_Controller {
 		{
 			$id_max = $key->id_pesanan;
 		}
+		if(empty($id_max))
+			$id_max = 000000;
 		$nourut = (int) substr($id_max, 7, 13);
 		$nourut++;
 		$datas["id_pesanan"] = "HLBOOK-" .sprintf('%06s', $nourut);
@@ -94,6 +98,9 @@ class PesananController extends CI_Controller {
 				if($this->input->post('tipepesanan') == 0)
 					$harga_bahan[$i] = $bahan->harga_kiloan * $datas["jumlah_bahan"] [$key];
 				else $harga_bahan[$i] = $bahan->harga_satuan * $datas["jumlah_bahan"] [$key];
+
+				
+				$datas["harga_bahan"][$key] = $harga_bahan[$i];
 			}
 
 			else
@@ -103,27 +110,36 @@ class PesananController extends CI_Controller {
 				else $harga_bahan[$i] = $bahan->harga_satuan * $datas["jumlah_bahan"] [$key];
 
 				$paketan = $this->Paketan->SelectIdPaketan($this->input->post('idpaketan'))->row();
+				
+				$datas["harga_bahan"][$key] = $harga_bahan[$i];
 				$datas["paketan"] = $paketan->total_harga_paketan;
 
 			}
-			$last_harga_bahan = $harga_bahan[$i];
+			$last_harga_bahan += $harga_bahan[$i];
 		}
 		
 		
-		$datas["data_total_harga"] = $last_harga_bahan + $datas["harga_pengiriman"];
 
 		if(!empty($this->input->post('idpromo')))
 		{
 			$promo = $this->Promo->SelectIdPromo($this->input->post('idpromo'))->row();
 
 			$tipe_potongan_promo = $promo->tipe_potongan_promo;
-			$potongan_promo = $promo->potongan_promo;
+			$potongan_promo = $promo->potongan_harga_promo;
 
 			if($tipe_potongan_promo == 0)
-				$datas["data_total_harga"] = $datas["data_total_harga"] - $potongan_promo;
-			else $datas["data_total_harga"] = $datas["data_total_harga"] * $potongan_promo / 100;
+				$datas["promo"] = $potongan_promo;
+			else $datas["promo"] = $potongan_promo / 100;
+		}
+		if(!empty($this->input->post('idpaketan')))
+		{
+			$datas["data_total_harga"] = $datas["paketan"] - $datas["promo"] + $datas["harga_pengiriman"];
 		}
 
+		else
+		{
+			$datas["data_total_harga"] = $last_harga_bahan + $datas["harga_pengiriman"] - - $datas["promo"];
+		}
 		$this->load->view('preview', $datas);
 	}
 
@@ -134,6 +150,8 @@ class PesananController extends CI_Controller {
 		{
 			$id_max = $key->id_pesanan;
 		}
+		if(empty($id_max))
+			$id_max = 000000;
 		$nourut = (int) substr($id_max, 7, 13);
 		$nourut++;
 		$kode_pesanan = "HLBOOK-" .sprintf('%06s', $nourut);
@@ -146,6 +164,7 @@ class PesananController extends CI_Controller {
 	                  'email_pemesan' => $this->input->post('emailpemesan'),
 					  'status_pesanan' => 0,
 					  'tipe_pesanan' => $this->input->post('tipepesanan'),
+					  'total_harga' => $this->input->post('data_total_harga'),
 	                  'id_paketan' => empty($this->input->post('idpaketan')) ? null : $this->input->post('idpaketan'),
 	                  'id_pengiriman' => empty($this->input->post('idpengiriman')) ? null : $this->input->post('idpengiriman'),
 	                  'id_pengguna' => empty($this->session->username_user) ? null : $this->session->username_user,
@@ -161,62 +180,26 @@ class PesananController extends CI_Controller {
 		$last_harga_bahan = 0;
 		$harga_pengiriman = 0;
 
-		if(!empty($this->input->post('idpengiriman')))
-			$harga_pengiriman = $this->Pengiriman->SelectIdPengiriman($this->input->post('idpengiriman'))->row()->harga_pengiriman;
-
-		foreach($id_bahan as $key => $value)
+		foreach($id_bahan as $key)
 		{
 
-			$bahan = $this->Bahan->SelectIdBahan($id_bahan[$key])->row();
-			if(empty($this->input->post('idpaketan')))
-			{
-				if($this->input->post('tipepesanan') == 0)
-					$harga_bahan = $bahan->harga_kiloan * $jumlah_bahan[$key];
-				else $harga_bahan = $bahan->harga_satuan * $jumlah_bahan[$key];
-
-				$data_total_harga = array('total_harga' =>  $last_harga_bahan + $harga_bahan);
-
-				$this->Pesanan->update($data_total_harga, $kode_pesanan);
-			}
-
-			else
-			{
-				if($this->input->post('tipepesanan') == 0)
-					$harga_bahan = $bahan->harga_kiloan * $jumlah_bahan[$key];
-				else $harga_bahan = $bahan->harga_satuan * $jumlah_bahan[$key];
-
-				$paketan = $this->Paketan->SelectIdPaketan($this->input->post('idpaketan'))->row();
-				$data_total_harga = array('total_harga' => $paketan->total_harga_paketan);
-
-				$this->Pesanan->update($data_total_harga, $kode_pesanan);
-			}
+			$bahan = $this->Bahan->SelectIdBahan($id_bahan[$i])->row();
+			
+			if($this->input->post('tipepesanan') == 0)
+				$harga_bahan = $bahan->harga_kiloan * $jumlah_bahan[$i];
+			else $harga_bahan = $bahan->harga_satuan * $jumlah_bahan[$i];
 
 
 			$pesanan_detail = array(
 					'id_pesanan' => $kode_pesanan,
-					'id_bahan' => $id_bahan[$key],
-					'jumlah' => $jumlah_bahan[$key],
+					'id_bahan' => $id_bahan[$i],
+					'jumlah' => $jumlah_bahan[$i],
 					'harga' => $harga_bahan
 			);
 			$this->Pesanan->insertDetail($pesanan_detail);
-			$last_harga_bahan = $harga_bahan;
+
+			$i++;
 		}
-
-		
-		$data_total_harga = array('total_harga' =>  $last_harga_bahan + $harga_pengiriman);
-		if(!empty($this->input->post('idpromo')))
-		{
-			$promo = $this->Promo->SelectIdPromo($this->input->post('idpromo'))->row();
-
-			$tipe_potongan_promo = $promo->tipe_potongan_promo;
-			$potongan_promo = $promo->potongan_promo;
-
-			if($tipe_potongan_promo == 0)
-				$data_total_harga = $data_total_harga - $potongan_promo;
-			else $data_total_harga = $data_total_harga * $potongan_promo / 100;
-		}
-
-		$this->Pesanan->update($data_total_harga, $kode_pesanan);
 		
 		$this->Pesanan->update_estimation_laundry_time($kode_pesanan);
 

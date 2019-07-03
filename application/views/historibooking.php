@@ -12,7 +12,7 @@
     <!-- CSS dependencies -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/neon.css">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
     <!-- Script: Make my navbar transparent when the document is scrolled to top -->
     <script src="<?php echo base_url(); ?>assets/js/navbar-ontop.js"></script>
     <!-- Script: Animated entrance -->
@@ -20,7 +20,7 @@
 </head>
 
 
-<body class="bg-info">
+<body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-info" style="">
         <div class="container">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="py-5">
+    <div class="py-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -75,19 +75,24 @@
                         <div class="card-body">
                             <div class="card-body">
                                 <div class="notifikasi"><?php echo $this->session->flashdata('notifikasi'); ?></div>
-
+                                <h2 class="display-4">Histori Booking</h2><br>
                                 <?php
                                 if ($histori->num_rows() == 0) echo "Tidak ada data";
                                 else {
                                     ?>
-                                    <table id="example" class="table table-stripe d table-bordered" style="width:100%">
+                                    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>ID Pesanan</th>
                                                 <th>Nama Pemesan</th>
+                                                <th>Alamat Pemesan</th>
+                                                <th>No Telp Pemesan</th>
+                                                <th>Jenis Pengiriman</th>
                                                 <th>Estimasi Pesanan</th>
+                                                <th>Total Harga</th>
                                                 <th>Status Pesanan</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,7 +105,11 @@
                                                     <td><?php echo $no; ?></td>
                                                     <td><?php echo $items->id_pesanan; ?></td>
                                                     <td><?php echo $items->nama_pemesan; ?></td>
-                                                    <td><?php echo $items->estimasi_pesanan; ?></td>
+                                                    <td><?php echo $items->alamat_pemesan; ?></td>
+                                                    <td><?php echo $items->telepon_pemesan; ?></td>
+                                                    <td><?php echo $items->nama_pengiriman; ?></td>
+                                                    <td><?php echo $items->estimasi_pesanan == 0 ? "Hari Ini" : $items->estimasi_pesanan." Hari "; ?></td>
+                                                    <td><?php echo "Rp. ".strrev(implode('.', str_split(strrev(strval($items->total_harga)), 3))); ?></td>
                                                     <td>
                                                         <?php
                                                         if ($items->status_pesanan == '0') {
@@ -115,6 +124,7 @@
                                                         ?>
 
                                                     </td>
+                                                    <td><a href="<?php echo base_url();?>upload/<?php echo $items->id_pembayaran; ?>" <?php echo $items->status_pembayaran == 1 ? "onclick='return false;'" : "";  ?><button class="btn btn-primary">Konfirmasi Pembayaran</button></a></td>
                                                 </tr>
                                             <?php } ?>
                                         </tbody>

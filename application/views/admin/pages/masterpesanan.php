@@ -58,6 +58,7 @@
 			<li><a href="<?php echo base_url(); ?>admin/paketan_detail"><em class="fa fa-calendar">&nbsp;</em> Data Paketan Detail</a></li>
 			<li><a href="<?php echo base_url(); ?>admin/pengguna"><em class="fa fa-calendar">&nbsp;</em> Data Pengguna </a></li>
 			<li><a href="<?php echo base_url(); ?>admin/pesanan"><em class="fa fa-calendar">&nbsp;</em> Data Pesanan </a></li>			
+			<li><a href="<?php echo base_url(); ?>admin/pembayaran"><em class="fa fa-calendar">&nbsp;</em> Data Pembayaran </a></li>			
 			<li><a href="<?php echo base_url(); ?>admin/LoginController/logout"><em class="fa fa-power-off">&nbsp;</em> Logout</a></li>
 		</ul>
 	</div>
@@ -119,7 +120,7 @@
 											<td><?php echo $items->tipe_pesanan == 0 ? 'Kiloan' : 'Satuan'; ?></td>
 											<td><?php echo $items->total_harga; ?></td>
 											<td>
-												<a href="<?php echo base_url(); ?>admin/pesanan/detail/<?php echo $items->id_pesanan; ?>"><button type="button" class="btn btn-danger btn-sm">detail</button></a>
+												<a href="<?php echo base_url(); ?>admin/pesanan/detail/<?php echo $items->id_pesanan; ?>"><button type="button" class="btn btn-danger btn-sm">Detail</button></a>
 												<select class="form-control" <?php if($items->status_pesanan == 3){ echo 'disabled'; } ?> name="status" id="status-<?php echo $no;?>" onChange="updatestatus(this, '<?php echo $items->id_pesanan; ?>');">
 													<option>Select</option>
 													<option value="0" <?php if($items->status_pesanan == 0){ echo 'selected'; } ?>>Antrian</option>

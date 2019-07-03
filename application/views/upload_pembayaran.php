@@ -52,7 +52,7 @@
             <a class="nav-link" href="<?php echo base_url(); ?>histori/">Histori Pesanan</a>
           </li>
           </ul>
-          <a class="btn navbar-btn mx-2 btn-primary shadowed" href="<?php echo base_url(); ?>profil/"><?php echo $this->session->username_user; ?></a>
+          <a class="btn navbar-btn mx-2 btn-primary shadowed" href="#"><?php echo $this->session->username_user; ?></a>
           <a class="btn navbar-btn mx-2 btn-danger shadowed" href="<?php echo base_url(); ?>login/logout">Keluar</a>
         <?php  } ?>
       </div>
@@ -75,37 +75,24 @@
             <div class="card-body">
               <div class="card-body">
                 <div class="notifikasi"><?php echo $this->session->flashdata('notifikasi'); ?></div>
-                <h4 class="card-title"><b>Form Daftar</b></h4>
+                <h4 class="card-title"><b>Form Upload Pembayaran</b></h4>
                 <br>
-                <form role="form" action="<?php echo base_url(); ?>register/add" method="post">
-                  <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Username</label>
+                <form role="form" action="<?php echo base_url(); ?>upload/pembayaran/<?php echo $id_pembayaran;?>" method="post" enctype="multipart/form-data">
+                  <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Nama Rekening</label>
                     <div class="col-10">
-                      <input type="text" class="form-control" id="username" placeholder="username" name="idpengguna"> </div>
+                      <input type="text" class="form-control" id="nama_rekening" placeholder="Nama Rekening" name="nama_rekening"> </div>
                   </div>
-                  <div class="form-group row"> <label for="inputpasswordh" class="col-2 col-form-label">Password</label>
+                  <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Nomor Rekening</label>
                     <div class="col-10">
-                      <input type="password" class="form-control" id="inputpasswordh" placeholder="Password" name="password"> </div>
+                      <input type="text" class="form-control" id="nomor_rekening" placeholder="Nomor Rekening" name="nomor_rekening"> </div>
                   </div>
-
-                  <div class="form-group row">
-                      <div class="col-10 col-md-12">
-                          <div class="form-group row"><label class="col-2">Nama</label>
-                              <div class="col-10"><input type="text" name="namapemesan" class="form-control" id="inlineFormInput" placeholder="Jane Doe"></div>
-                          </div>
-                          <div class="row">
-                              <div class="col-10 col-md-12">
-                                  <div class="form-group row"><label class="col-2">No Telpon</label>
-                                      <div class="col-10"><input type="text" name="telepon_pemesan" class="form-control" id="inlineFormInput" placeholder="Jane Doe"></div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                  <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Bank</label>
+                    <div class="col-10">
+                      <input type="text" class="form-control" id="bank" placeholder="Bank" name="bank"> </div>
                   </div>
-                  <div class="form-group row"><label class="col-2">Email</label>
-                      <div class="col-10"><input type="email" name="emailpemesan" class="form-control" id="inlineFormInput" placeholder="Email"></div>
-                  </div>
-                  <div class="form-group row"><label class="col-2">Alamat</label>
-                      <div class="col-10"><textarea name="alamatpemesan" class="form-control" id="exampleTextarea" rows="3"></textarea></div>
+                  <div class="form-group row"> <label for="inputpasswordh" class="col-2 col-form-label">Upload bukti</label>
+                    <div class="col-10">
+                      <input type="file" class="form-control" id="bukti_pembayaran" placeholder="bukti_pembayaran" name="bukti_pembayaran"> </div>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

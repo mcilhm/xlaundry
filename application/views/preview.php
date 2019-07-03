@@ -19,7 +19,7 @@
 </head>
 
 
-<body style="background-image: url(https://pingendo.com/site-assets/cover.jpg);	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+<body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-info" style="">
         <div class="container">
@@ -92,6 +92,19 @@
                                         <div class="form-group row"><label class="col-2">Ongkir</label>
                                             <div class="col-10"><input type="text" name="hargapengiriman" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $harga_pengiriman; ?>" readonly></div>
                                         </div>
+                                        <?php
+                                        if(!empty($paketan))
+                                        {
+                                        ?>
+                                        <div class="form-group row"><label class="col-2">Harga Paketan</label>
+                                            <div class="col-10"><input type="text" name="hargapaketan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $paketan; ?>" readonly></div>
+                                        </div>
+                                        <?php } ?>
+
+                                        
+                                        <div class="form-group row"><label class="col-2">Potongan Promo</label>
+                                            <div class="col-10"><input type="text" name="hargapaketan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $promo; ?>" readonly></div>
+                                        </div>
                                         <input type="hidden" name="idpaketan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_paketan; ?>" readonly>
                                         <input type="hidden" name="idpromo" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_promo; ?>" readonly>
                                         <input type="hidden" name="idpengiriman" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_pengiriman; ?>" readonly>
@@ -106,15 +119,18 @@
                                         
                                         <div class="form-group row"><label class="col-2">Bahan <?php echo ($i + 1);?> </label>
                                             <input type="hidden" name="idbahan[]" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_bahan[$i]; ?>" readonly>
-                                            <div class="col-4"><input type="text" name="namabahan[]" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $nama_bahan[$i]; ?>" readonly></div>
+                                            <div class="col-2"><input type="text" name="namabahan[]" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $nama_bahan[$i]; ?>" readonly></div>
                                             <label class="col-2">Jumlah</label>
                                             <div class="col-2"><input type="text" name="jumlah[]" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $jumlah_bahan[$i]; ?>" readonly></div>
+                                            <label class="col-2">Harga</label>
+                                            <div class="col-2"><input type="text" name="harga[]" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $harga_bahan[$i]; ?>" readonly></div>
                                         </div>
 
                                         <?php    # code...
                                         }
                                         ?>
                                         <br><br>
+                                        <input type="hidden" name="data_total_harga" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $data_total_harga; ?>" readonly>
                                         <h3 class="display-7" style="font-weight:800;" >Total Harga: <?php echo $data_total_harga; ?></h3>
                                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                                 </form>

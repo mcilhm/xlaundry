@@ -16,15 +16,17 @@ class Promo extends CI_Model
 		return $this->db->get();
 
 	}
-	public function SelectByStatus()
-	{ 
-		$date = new DateTime("now");
+	public function SelectByStatus($tipe_promo)
+	{  
+		$date = date('Y-m-d h:m:s');
 
-		$curr_date = $date->format('Y-m-d hh:mm:ss');
 		$this->db->select('*');
 		$this->db->from('promo');
-		$this->db->where('waktu_mulai_promo <=', $curr_date);
-		$this->db->where( 'waktu_akhir_promo >=', $curr_date);
+		$this->db->where('waktu_mulai_promo <=', $date);
+		$this->db->where( 'waktu_akhir_promo >=', $date);
+
+		if($tipe_promo == 0)
+			$this->db->where( 'tipe_promo ', $tipe_promo);
 
 		return $this->db->get();
 	}

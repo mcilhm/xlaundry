@@ -100,35 +100,19 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-6 col-md-6 p-3">
+        <div class="col-lg-12 col-md-12 p-3">
           <div class="card bg-light">
             <div class="card-body p-6 bg-dark">
               <div class="row">
                 <div class="col-8">
-                  <h1 class="mb-0">Kiloan</h1>
+                  <h1 class="mb-0">Kiloan/Satuan</h1>
                 </div>
                 <div class="col-4 text-right">
                   <h5 class="mb-0"> <b>Mulai dari Rp. 10.000/Kg</b></h5>
                 </div>
               </div>
-              <p class="my-3">Bahan anda banyak yang ingin di Laundry? beratnya bisa sampai berkilo-kilo? tenang kami menyediakan paketan Laundry Kiloan.</p>
-              <a class="btn btn-primary mt-3" href="<?php echo base_url(); ?>pesanan/pesan">Pesan</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 p-3">
-          <div class="card bg-light">
-            <div class="card-body p-6 bg-dark">
-              <div class="row">
-                <div class="col-8">
-                  <h1 class="mb-0">Satuan</h1>
-                </div>
-                <div class="col-4 text-right">
-                  <h5 class="mb-0"> <b>Mulai dari Rp. 4.000/Pcs</b></h5>
-                </div>
-              </div>
-              <p class="my-3">Hanya sedikit bahan yang ingin di Laundry? dan tidak mencapai 1 Kilo ? Kami menyediakan Laundry dengan jumlah satuan atau /pcs.</p>
-              <a class="btn btn-primary mt-3" href="<?php echo base_url(); ?>pesanan/pesan">Pesan</a>
+              <p class="my-3">Bahan anda banyak yang ingin di Laundry? beratnya bisa sampai berkilo-kilo? tenang kami menyediakan paketan Laundry Kiloan. Kami juga menerima Laundry dengan jumlah satuan atau /pcs.</p>
+              <a class="btn btn-block btn-primary mt-3" href="<?php echo base_url(); ?>pesanan/pesan">Pesan</a>
             </div>
           </div>
         </div>

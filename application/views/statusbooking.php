@@ -21,7 +21,7 @@
 </head>
 
 
-<body class="bg-info">
+<body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-info" style="">
         <div class="container">

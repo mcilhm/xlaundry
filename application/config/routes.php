@@ -60,6 +60,9 @@ $route['login/logout'] = 'LoginController/logout';
 $route['register'] = 'RegisterController';
 $route['register/add'] = 'RegisterController/add';
 
+$route['upload'] = 'UploadController';
+$route['upload/(:any)'] = 'UploadController/index/$1';
+$route['upload/pembayaran/(:any)'] = 'UploadController/pembayaran/$1';
 
 $route['profil'] = 'ProfilController';
 $route['profil/update'] = 'ProfilController/update';
@@ -112,6 +115,11 @@ $route['admin/paketan_detail/delete/(:num)'] = "admin/PaketanDetailController/de
 $route['admin/pesanan'] = "admin/PesananController";
 $route['admin/pesanan/add'] = "admin/PesananController/add";
 $route['admin/pesanan/updateproses/(:any)'] = "admin/PesananController/updateproses/$1";
+$route['admin/pesanan/detail/(:any)'] = "admin/PesananController/detail/$1";
+
+
+$route['admin/pembayaran'] = "admin/PembayaranController";
+$route['admin/pembayaran/updateproses/(:any)'] = "admin/PembayaranController/updateproses/$1";
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

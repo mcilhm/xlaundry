@@ -19,7 +19,7 @@
 </head>
 
 
-<body style="background-image: url(https://pingendo.com/site-assets/cover.jpg);	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+<body>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-info" style="">
     <div class="container">
