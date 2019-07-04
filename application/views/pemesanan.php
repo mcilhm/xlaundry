@@ -145,7 +145,6 @@
                                         </div>
                                         <div class="form-group row"><label class="col-2">Tipe Pesanan</label>
                                             <div class="col-10"><select name="tipepesanan" class="custom-select">
-                                                    <option selected="" value="">Open this select menu</option>
                                                     <option value="0">Kiloan</option>
                                                     <option value="1">Satuan</option>
                                                 </select></div>
@@ -157,7 +156,6 @@
                                             <div class="form-group row"><label class="col-2">Bahan</label>
                                                 <div class="col-10">
                                                     <select name="idbahan[]" class="custom-select">
-                                                        <option selected="">Open this select menu</option>
                                                         <?php
                                                         foreach ($bahan->result() as $itemsbahan) {
                                                             ?>
@@ -203,7 +201,6 @@
                         '<label class="col-2">Bahan</label>'+
                         '<div class="col-10">'+
                             '<select name="idbahan[]" class="custom-select">'+
-                                '<option selected="" value="">Open this select menu</option>'+
                                 '<?php foreach ($bahan->result() as $itemsbahan) { ?>'+
                                     '<option value="<?php echo $itemsbahan->id_bahan; ?>|<?php echo $itemsbahan->nama_bahan; ?>"><?php echo $itemsbahan->nama_bahan; ?></option>'+
                                 '<?php } ?>'+

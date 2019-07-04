@@ -85,7 +85,7 @@ class PesananController extends CI_Controller {
 
 		if(!empty($this->input->post('idpengiriman')))
 			$datas["harga_pengiriman"] = $this->Pengiriman->SelectIdPengiriman($this->input->post('idpengiriman'))->row()->harga_pengiriman;
-
+		else $datas["harga_pengiriman"]  = 0;
 		foreach($this->input->post('idbahan') as $key => $value)
 		{
 
@@ -130,6 +130,10 @@ class PesananController extends CI_Controller {
 			if($tipe_potongan_promo == 0)
 				$datas["promo"] = $potongan_promo;
 			else $datas["promo"] = $potongan_promo / 100;
+		}
+		else
+		{
+			$datas["promo"] = 0;
 		}
 		if(!empty($this->input->post('idpaketan')))
 		{

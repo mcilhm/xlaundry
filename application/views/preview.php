@@ -102,12 +102,17 @@
                                         <?php } ?>
 
                                         
+                                        <?php
+                                        if(!empty($paketan))
+                                        {
+                                        ?>
                                         <div class="form-group row"><label class="col-2">Potongan Promo</label>
                                             <div class="col-10"><input type="text" name="hargapaketan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $promo; ?>" readonly></div>
                                         </div>
-                                        <input type="hidden" name="idpaketan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_paketan; ?>" readonly>
-                                        <input type="hidden" name="idpromo" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_promo; ?>" readonly>
-                                        <input type="hidden" name="idpengiriman" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $id_pengiriman; ?>" readonly>
+                                        <?php } ?>
+                                        <input type="hidden" name="idpaketan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo empty($id_paketan) ? null : $id_paketan; ?>" readonly>
+                                        <input type="hidden" name="idpromo" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo empty($id_promo) ? null : $id_promo; ?>" readonly>
+                                        <input type="hidden" name="idpengiriman" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo empty($id_pengiriman) ? null : $id_pengiriman;  ?>" readonly>
                                         <input type="hidden" name="tipepesanan" class="form-control" id="inlineFormInput" placeholder="Jane Doe" value="<?php echo $tipe_pesanan; ?>" readonly>
 
                                         
