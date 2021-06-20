@@ -95,7 +95,7 @@
                           <div class="row">
                               <div class="col-10 col-md-12">
                                   <div class="form-group row"><label class="col-2">No Telpon</label>
-                                      <div class="col-10"><input type="text" name="telepon_pemesan" class="form-control" id="inlineFormInput" placeholder="Jane Doe"></div>
+                                      <div class="col-10"><input type="text" name="teleponpemesan" class="form-control" id="inlineFormInput" placeholder="Jane Doe"></div>
                                   </div>
                               </div>
                           </div>

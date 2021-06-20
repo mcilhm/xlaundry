@@ -43,3 +43,4 @@ application/config/mimes.php
 application/config/profiler.php
 application/config/smileys.php
 application/config/user_agents.php
+*.zip
